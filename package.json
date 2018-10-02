@@ -1,0 +1,30 @@
+{
+  "name": "tracata",
+  "version": "1.0.0",
+  "description": "Responsive CSS Grid",
+  "main": "script.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tforward/Tracata.git"
+  },
+  "keywords": [
+    "CSS",
+    "Grid",
+    "Responsive"
+  ],
+  "author": "Tristan Forward",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tforward/Tracata/issues"
+  },
+  "homepage": "https://github.com/tforward/Tracata#readme",
+  "dependencies": {
+    "eslint": "^5.6.1"
+  }
+}
