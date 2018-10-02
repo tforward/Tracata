@@ -6,3 +6,8 @@
 6) npm i prettier
 7) Copy eslint config Template
 8) 
+
+
+
+
+- webpack config template
