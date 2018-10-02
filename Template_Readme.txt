@@ -4,4 +4,5 @@
 4) Commit / Restart
 5) eslint --init
 6) npm i prettier
-7) 
+7) Copy eslint config Template
+8) 
