@@ -1,0 +1,134 @@
+/* CSS */
+
+:root {
+    --spanX3-col: 3;
+    --spanX3-row: 2;
+    /* These are set via JS */
+    --gridMin: 0;
+    --gridGap: 0;
+    --maxSpan: 1;
+    --maxSpanCol: 1;
+    --maxSpanRow: 1;
+    
+    /* SubHeader */
+    --subHeadSpanCol: 1;
+    --subHeadSpanRow: 1;
+    
+    /* Sm Spans*/
+    --smSpanCol: 1;
+    --smSpanRow: 1;
+    
+    --spanPixelSize: 100px;
+  }
+  
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  
+  body {
+    margin: 0;
+  }
+  
+  .flexbox {
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    padding: calc(6% + 1.9vmin);
+  }
+  
+  
+  .card {
+    background-size: cover;
+    /* Change this based on the image main subject */
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 1.61803%;
+    transition: all 1s ease-in;
+  }
+  
+  .center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(100px, 1fr));
+    justify-content: center;
+    align-content: end;
+    margin-bottom: 1em;
+  }
+  
+  .grid-wrapper {
+    display: grid;
+    justify-content: center;
+    align-content: end;
+    grid-auto-rows: var(--spanPixelSize);
+    grid-template-columns: repeat(var(--maxSpan), minmax(min-content, 1fr));
+    grid-gap: 1em;
+  }
+  
+  .header-image {
+    grid-column: span var(--maxSpanCol);
+    grid-row: span var(--maxSpanRow);
+    background-image: url('https://unsplash.it/1503');
+  }
+  
+  .subhead-image1 {
+    grid-column: span var(--subHeadSpanCol);
+    grid-row: span var(--subHeadSpanRow);
+    background-image: url('https://unsplash.it/1505');
+  }
+  
+  .subhead-image2 {
+    grid-column: span var(--subHeadSpanCol);
+    grid-row: span var(--subHeadSpanRow);
+    background-image: url('https://unsplash.it/1508');
+  } 
+  
+  .span3-col {
+    grid-column: span var(--spanX3-col);
+    grid-row: span var(--spanX3-row);
+  }
+  
+  .smSpan {
+    grid-column: span var(--smSpanCol);
+    grid-row: span var(--smSpanRow);
+  }
+  
+  .item4 {
+    background-image: url('https://unsplash.it/1509');
+  }
+  
+  .item5 {
+    background-image: url('https://unsplash.it/1510');
+  }
+  
+  .item6 {
+    background-image: url('https://unsplash.it/1509');
+  }
+  
+  .item7 {
+    background-image: url('https://unsplash.it/1510');
+  }
+  
+  .item8 {
+    background-image: url('https://unsplash.it/1501');
+  }
+  
+  .item9 {
+    background-image: url('https://unsplash.it/1503');
+  }
+  
+  .item10 {
+    background-image: url('https://unsplash.it/1508');
+  }
+  
+  .item11 {
+    background-image: url('https://unsplash.it/1505');
+  }
+  
+  .item12 {
+    background-image: url('https://unsplash.it/1503');
+  }  
