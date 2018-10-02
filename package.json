@@ -25,6 +25,11 @@
   },
   "homepage": "https://github.com/tforward/Tracata#readme",
   "dependencies": {
-    "eslint": "^5.6.1"
+    "eslint": "^5.6.1",
+    "prettier": "^1.14.3"
+  },
+  "devDependencies": {
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0"
   }
 }

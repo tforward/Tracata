@@ -1,5 +1,3 @@
-"use strict";
-
 const myApp = Object.create(null);
 
 // ======================================================================
@@ -15,7 +13,7 @@ myApp.initApplication = function init() {
 
 // Handler when the DOM is fully loaded
 document.onreadystatechange = function onreadystatechange() {
-  if (document.readyState === "complete") {
+  if (document.readyState === 'complete') {
     myApp.initApplication(document.readyState);
   } else {
     // Do something during loading [opitional]
