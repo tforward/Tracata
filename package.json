@@ -30,12 +30,16 @@
     "normalize.css": "^8.0.0"
   },
   "devDependencies": {
+    "css-loader": "^1.0.0",
     "eslint": "^5.6.1",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-config-prettier": "^3.1.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-prettier": "^3.0.0",
+    "file-loader": "^2.0.0",
+    "image-webpack-loader": "^4.3.1",
     "prettier": "^1.14.3",
+    "style-loader": "^0.23.0",
     "webpack": "^4.20.2",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.9",

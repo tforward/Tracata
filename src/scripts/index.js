@@ -1,3 +1,5 @@
+import css_ from "../css/styles.css";
+
 const myApp = Object.create(null);
 // ======================================================================
 // App
