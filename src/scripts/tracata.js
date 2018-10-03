@@ -1,50 +1,43 @@
-// The size in pixels of a single span
-const spanPixelSize = 60;
-const defaultRowSize = 2;
+export function loadTracata(gridId, spanRowSize, spanColSize, gridArrays, cssGridNames, defaultRowSize) {
+  const gridElem = document.getElementById(gridId);
+  const baseline = gridArrays[0];
+  // Return an array of the first item of grid list
+  const gridDivisors = Object.keys(baseline[Object.keys(baseline)[0]]);
 
-// You can change this directly in CSS if you wish
-document.documentElement.style.setProperty("--spanPixelSize", `${80}px`);
+  // On Load
+  grids(gridElem, spanColSize, gridArrays, cssGridNames, defaultRowSize, gridDivisors);
+  document.documentElement.style.setProperty("--spanRowPixelSize", `${spanRowSize}px`);
 
-// Grid
-// widthSpan: [colSize, rowSize]
-// If rowSpan is not present will default to the defaultRowSize
-const gridArrays = {
-  headerSpan: { 1: [1], 2: [2], 4: [4, 2], 6: [6, 3], 8: [8, 3], 12: [12, 6] },
-  subHeader: { 1: [1], 2: [2], 4: [2, 2], 6: [3, 3], 8: [4, 3], 12: [6, 3] },
-  spanArray: { 1: [1], 2: [2], 4: [2], 6: [2, 2], 8: [4], 12: [3, 3] },
-  smSpans: { 1: [1, 1], 2: [1, 1], 4: [1, 1], 6: [2, 2], 8: [2], 12: [2, 2] }
-};
-
-const gridDivisors = Object.keys(gridArrays["spanArray"]);
-
-function grids(grid, spanPixelSize, gridArrays, defaultRowSize) {
-  const gridSize = setGridMax(grid, spanPixelSize, "--maxSpan");
-  setGrid(gridArrays["headerSpan"], defaultRowSize, gridSize, "--maxSpanCol", "--maxSpanRow");
-  setGrid(gridArrays["subHeader"], defaultRowSize, gridSize, "--subHeadSpanCol", "--subHeadSpanRow");
-  setGrid(gridArrays["spanArray"], defaultRowSize, gridSize, "--spanX3-col", "--spanX3-row");
-  setGrid(gridArrays["smSpans"], defaultRowSize, gridSize, "--smSpanCol", "--smSpanRow");
+  // On Resize
+  window.addEventListener("resize", event => {
+    grids(gridElem, spanColSize, gridArrays, cssGridNames, defaultRowSize, gridDivisors);
+  });
 }
 
-// On Load
-const grid = document.getElementById("grid");
-grids(grid, spanPixelSize, gridArrays, defaultRowSize);
+function grids(grid, spanPixelSize, gridArrays, cssGridNames, defaultRowSize, gridDivisors) {
+  const gridSize = getGridMax(grid, spanPixelSize, "--maxSpan", gridDivisors);
+  setGridArray(gridArrays, cssGridNames, defaultRowSize, gridSize);
+}
 
-// On Resize
-window.addEventListener("resize", event => {
-  grids(grid, spanPixelSize, gridArrays, defaultRowSize);
-});
+function setGridArray(gridArrays, cssGridNames, defaultRowSize, gridSize) {
+  gridArrays.forEach(grid => {
+    const gridName = Object.keys(grid)[0];
+    const rowName = cssGridNames[gridName][0];
+    const colName = cssGridNames[gridName][1];
+    const gridValues = Object.values(grid)[0];
+    setGrid(gridValues, defaultRowSize, gridSize, rowName, colName);
+  });
+}
 
-function setGrid(spanArray, defaultRowSize, gridSize, colName, rowName) {
+function setGrid(spanArray, defaultRowSize, gridSize, rowName, colName) {
   const colRowSize = setGridSize(gridSize, spanArray, defaultRowSize);
   renderGrid(colRowSize, colName, rowName);
 }
 
-function setGridMax(grid, gridMin, spanName) {
+function getGridMax(grid, gridMin, spanName, gridDivisors) {
   const getGridWidth = grid.getBoundingClientRect().width - gridMin;
   const gridColNum = Math.round(getGridWidth / gridMin);
-  const gridSize = getGridSize(gridColNum, -1);
-
-  console.log({ gridSize });
+  const gridSize = getGridSize(gridColNum, -1, gridDivisors);
   document.documentElement.style.setProperty(spanName, gridSize);
   return gridSize;
 }
@@ -63,7 +56,7 @@ function renderGrid(colRowSize, colName, rowName) {
   document.documentElement.style.setProperty(rowName, colRowSize[1]);
 }
 
-function getGridSize(num, i) {
+function getGridSize(num, i, gridDivisors) {
   // Recursize Function
   // Can't be less than 1
   if (num < 1) {
@@ -77,7 +70,7 @@ function getGridSize(num, i) {
   if (lastDivNum < num) {
     return lastDivNum;
   }
-  return getGridSize(num, (i += 1));
+  return getGridSize(num, (i += 1), gridDivisors);
 }
 
 function getLastGridFitting(gridDivisors, i) {

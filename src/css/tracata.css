@@ -1,24 +1,25 @@
 /* CSS */
 
 :root {
-    --spanX3-col: 3;
-    --spanX3-row: 2;
-    /* These are set via JS */
+    /* These are set via JS Don't Change */
     --gridMin: 0;
     --gridGap: 0;
     --maxSpan: 1;
-    --maxSpanCol: 1;
-    --maxSpanRow: 1;
-    
-    /* SubHeader */
-    --subHeadSpanCol: 1;
-    --subHeadSpanRow: 1;
-    
-    /* Sm Spans*/
-    --smSpanCol: 1;
-    --smSpanRow: 1;
-    
-    --spanPixelSize: 100px;
+    /* ^ These are set via JS Don't Change ^ */
+
+    --header-row: 1;
+    --header-col: 1;
+ 
+    --subHeader-row: 1;
+    --subHeader-col: 1;
+
+    --med-row: 2;
+    --med-col: 3;
+
+    --sm-row: 1;
+    --sm-col: 1;
+
+    --spanRowPixelSize: 100px;
   }
   
   *, *::before, *::after {
@@ -64,37 +65,37 @@
     display: grid;
     justify-content: center;
     align-content: end;
-    grid-auto-rows: var(--spanPixelSize);
+    grid-auto-rows: var(--spanRowPixelSize);
     grid-template-columns: repeat(var(--maxSpan), minmax(min-content, 1fr));
     grid-gap: 1em;
   }
   
   .header-image {
-    grid-column: span var(--maxSpanCol);
-    grid-row: span var(--maxSpanRow);
+    grid-row: span var(--header-row);
+    grid-column: span var(--header-col);
     background-image: url('https://unsplash.it/1503');
   }
   
   .subhead-image1 {
-    grid-column: span var(--subHeadSpanCol);
-    grid-row: span var(--subHeadSpanRow);
+    grid-row: span var(--subHeader-row);
+    grid-column: span var(--subHeader-col);
     background-image: url('https://unsplash.it/1505');
   }
   
   .subhead-image2 {
-    grid-column: span var(--subHeadSpanCol);
-    grid-row: span var(--subHeadSpanRow);
+    grid-row: span var(--subHeader-row);
+    grid-column: span var(--subHeader-col);
     background-image: url('https://unsplash.it/1508');
   } 
   
   .span3-col {
-    grid-column: span var(--spanX3-col);
-    grid-row: span var(--spanX3-row);
+    grid-row: span var(--med-row);
+    grid-column: span var(--med-col);
   }
   
   .smSpan {
-    grid-column: span var(--smSpanCol);
-    grid-row: span var(--smSpanRow);
+    grid-row: span var(--sm-row);
+    grid-column: span var(--sm-col);
   }
   
   .item4 {
