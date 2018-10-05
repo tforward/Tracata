@@ -40,9 +40,6 @@ const numOfItems = 4;
 // Set two undefined to turn off
 const minSpanSize = 2;
 
-// The size in pixels of a single span
-const spanPixelSize = 120;
-
 // Set how the grid flows can be either FULL, EVEN or ODD, default is FULL
 const gridFlow = "FULL";
 
@@ -54,12 +51,31 @@ const gridFlow = "FULL";
 const spanSelf = undefined;
 const mulipleList = [];
 
-// ==================== Check Inputs
-
 const isPrime = num => {
   for (let i = 2, s = Math.sqrt(num); i <= s; i++) if (num % i === 0) return false;
   return num !== 1;
 };
+
+export function tracataGen() {
+  // Grid
+  let gridDivisors = getDivisors(maxGridSize);
+  const gridNums = getNumsOfNums(spanSize, maxGridSize, 1, mulipleList);
+  gridDivisors = addToArrayNoDupes(gridNums, gridDivisors);
+  gridDivisors = sortedNumList(gridDivisors);
+  gridDivisors = testForPrime(gridDivisors);
+
+  //   // spanArray
+  const allSpanArray = getSpanArray(gridDivisors, numOfItems, spanSize);
+
+  console.log(allSpanArray);
+
+  //   // You can provide your own custom spanArray here if you wish
+  //   const spanArray = allSpanArray[gridFlow];
+}
+
+tracataGen();
+
+// ==================== Check Inputs
 
 if (isPrime(maxGridSize)) {
   console.log("Max Grid Number cannot be a Prime Number, minuing one", maxGridSize - 1);
@@ -67,31 +83,6 @@ if (isPrime(maxGridSize)) {
   maxGridSize -= 1;
   console.log(maxGridSize);
 }
-
-// ==================== MAIN
-
-// Grid
-let gridDivisors = getDivisors(maxGridSize);
-const gridNums = getNumsOfNums(spanSize, maxGridSize, 1, mulipleList);
-gridDivisors = addToArrayNoDupes(gridNums, gridDivisors);
-gridDivisors = sortedNumList(gridDivisors);
-gridDivisors = testForPrime(gridDivisors);
-
-// spanArray
-const allSpanArray = getSpanArray(gridDivisors, numOfItems, spanSize);
-
-// You can provide your own custom spanArray here if you wish
-const spanArray = allSpanArray[gridFlow];
-
-console.log(spanArray);
-
-// On load
-setGridSize(spanArray, gridType, minSpanSize);
-
-// On resize
-window.addEventListener("resize", event => {
-  setGridSize(spanArray, gridType, minSpanSize);
-});
 
 //= ============================= Visual Display it
 
@@ -173,7 +164,6 @@ function getSpanArray(gridDivisors, numOfItems, spanSize) {
     const getSpanItems = getValidSpanOnSpans(initialItemSpans, spanSize);
     let spanItems = addToArrayNoDupes(initialItemSpans, getSpanItems);
     spanItems = sortedNumList(spanItems);
-    // TODO ADD 1 If Not Present as always valid / maybe?
     const oddSpanItems = getOddSpans(gridIndex, spanItems, spanSize);
     console.log(oddSpanItems);
     let allSpanItems = spanItems.concat(oddSpanItems);

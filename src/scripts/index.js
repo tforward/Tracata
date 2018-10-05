@@ -1,5 +1,6 @@
 import css_ from "../css/styles.css";
 import { loadTracata } from "./tracata";
+import { tracataGen } from "./tracataGen";
 import tracataCss_ from "../css/tracata.css";
 
 const myApp = Object.create(null);
@@ -24,6 +25,8 @@ myApp.main = function main() {
     { medSpan: { 1: [1], 2: [2], 4: [2], 6: [2, 2], 8: [4], 12: [3, 3] } },
     { smSpan: { 1: [1, 1], 2: [1, 1], 4: [1, 1], 6: [2, 2], 8: [2], 12: [2, 2] } }
   ];
+
+  console.log(gridArrays);
 
   const cssGridNames = {
     header: ["--header-row", "--header-col"],
