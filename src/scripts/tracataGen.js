@@ -63,14 +63,9 @@ export function tracataGen() {
   gridDivisors = addToArrayNoDupes(gridNums, gridDivisors);
   gridDivisors = sortedNumList(gridDivisors);
   gridDivisors = testForPrime(gridDivisors);
-
-  //   // spanArray
   const allSpanArray = getSpanArray(gridDivisors, numOfItems, spanSize);
 
-  console.log(allSpanArray);
-
-  //   // You can provide your own custom spanArray here if you wish
-  //   const spanArray = allSpanArray[gridFlow];
+  return allSpanArray;
 }
 
 tracataGen();
@@ -90,9 +85,6 @@ function setGridSize(spanArray, gridType, minSpanSize) {
   const bestSpanArray = spanArray[gridSize];
   let bestSpanSize = getSpanBasedOnGridType(gridType, bestSpanArray);
   bestSpanSize = checkMinSpanSize(bestSpanSize, minSpanSize, bestSpanArray);
-
-  document.documentElement.style.setProperty("--maxSpan3", gridSize);
-  document.documentElement.style.setProperty("--spanX3-col", bestSpanSize);
 }
 
 function checkMinSpanSize(bestSpanSize, minSpanSize, bestSpanArray) {
@@ -165,7 +157,6 @@ function getSpanArray(gridDivisors, numOfItems, spanSize) {
     let spanItems = addToArrayNoDupes(initialItemSpans, getSpanItems);
     spanItems = sortedNumList(spanItems);
     const oddSpanItems = getOddSpans(gridIndex, spanItems, spanSize);
-    console.log(oddSpanItems);
     let allSpanItems = spanItems.concat(oddSpanItems);
     const uniqueAllSpanItems = uniq(allSpanItems);
     allSpanItems = sortedNumList(uniqueAllSpanItems);

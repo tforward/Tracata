@@ -1,33 +1,28 @@
-export function loadTracata(gridId, spanRowSize, spanColSize, gridDivisors, gridArrays, cssGridNames, defaultRowSize) {
+export function loadTracata(gridId, spanRowSize, spanColSize, gridDivisors, gridArrays, defaultRowSize) {
   const gridElem = document.getElementById(gridId);
   // Return an array of the first item of grid list
   const gridSplits = gridDivisors;
 
   // On Load
-  grids(gridElem, spanColSize, gridArrays, cssGridNames, defaultRowSize, gridSplits);
+  grids(gridElem, spanColSize, gridArrays, defaultRowSize, gridSplits);
   document.documentElement.style.setProperty("--spanRowPixelSize", `${spanRowSize}px`);
 
   // On Resize
   window.addEventListener("resize", event => {
-    grids(gridElem, spanColSize, gridArrays, cssGridNames, defaultRowSize, gridSplits);
+    grids(gridElem, spanColSize, gridArrays, defaultRowSize, gridSplits);
   });
 }
 
-function grids(grid, spanPixelSize, gridArrays, cssGridNames, defaultRowSize, gridDivisors) {
-  const gridSize = getGridMax(grid, spanPixelSize, "--maxSpan", gridDivisors);
-  setGridArray(gridArrays, cssGridNames, defaultRowSize, gridSize);
+function grids(grid, spanColSize, gridArrays, defaultRowSize, gridDivisors) {
+  const gridSize = getGridMax(grid, spanColSize, "--maxSpan", gridDivisors);
+  setGridArray(gridArrays, defaultRowSize, gridSize);
 }
 
-function setGridArray(gridArrays, cssGridNames, defaultRowSize, gridSize) {
+function setGridArray(gridArrays, defaultRowSize, gridSize) {
   const gridEntries = Object.entries(gridArrays);
 
   gridEntries.forEach(grid => {
-    const gridName = grid[0];
-    // TODO I think I can combine this with other object and clean it up abit
-    const rowName = cssGridNames[gridName][0];
-    const colName = cssGridNames[gridName][1];
-    const gridValues = grid[1];
-    setGrid(gridValues, defaultRowSize, gridSize, rowName, colName);
+    setGrid(grid[1]["values"], defaultRowSize, gridSize, grid[1]["rowName"], grid[1]["colName"]);
   });
 }
 
