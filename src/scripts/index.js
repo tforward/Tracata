@@ -57,7 +57,7 @@ myApp.main = function main() {
   const generatedArrays = tracataGen();
 
   // Must be the same as above?
-  const gridSplits = [1, 2, 4, 6, 8, 12];
+  const gridSplits = [1, 2, 4, 6, 12];
 
   // These are the options for a given size
   console.log(generatedArrays["FULL"]);
