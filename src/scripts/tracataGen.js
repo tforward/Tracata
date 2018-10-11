@@ -1,5 +1,10 @@
 // TODO
 
+// HERE
+// I was trying to find better way to bring this generator code into the rest of the script but I'm finding it difficult to see use case
+// as the variables seem to change alot. This tool can still be used for helping to develop good layouts by providing good span numbers to use 
+// however for now I'm going to put this project on hold on focus on the front part only, nad just use this tool for again getting good span numbers
+
 // Testing and then hopefully done
 // Self span size
 
@@ -8,18 +13,6 @@
 // If span spanSize is Even option to exclude Odd numbers from list
 // If span spanSize is Odd option to exclude Even numbers from list
 // Patterns
-
-// gridTypes = ["SM", "MED", "LRG", "MAX"]
-//    - MIN: Min will always take up the smallest amount possible ie. 1
-//    - SM: Min will always take up up the smallest amount possible greater than 1
-//    - MED: Medium
-//    - LRG: Large will show the num of items either split arcoss 1 row or 2 rows
-//           depending on the current spanSize and the number of items to be shown.
-//    - MAX: Max will always take up the full space.
-
-// === USER PARAMS ===
-
-const gridType = "LRG";
 
 // maxGridSize cannot be a Prime Number greater than or equal to 7
 // NOT: 7 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97 etc...
@@ -65,6 +58,9 @@ export function tracataGen() {
   gridDivisors = testForPrime(gridDivisors);
   const allSpanArray = getSpanArray(gridDivisors, numOfItems, spanSize);
 
+  // bestSpan = setGridSize(allSpanArray, minSpanSize);
+  // console.log("best", bestSpan)
+  
   return allSpanArray;
 }
 
@@ -81,10 +77,11 @@ if (isPrime(maxGridSize)) {
 
 //= ============================= Visual Display it
 
-function setGridSize(spanArray, gridType, minSpanSize) {
+function setGridSize(spanArray, minSpanSize) {
   const bestSpanArray = spanArray[gridSize];
-  let bestSpanSize = getSpanBasedOnGridType(gridType, bestSpanArray);
+  let bestSpanSize = getSpan(bestSpanArray);
   bestSpanSize = checkMinSpanSize(bestSpanSize, minSpanSize, bestSpanArray);
+  return bestSpanSize;
 }
 
 function checkMinSpanSize(bestSpanSize, minSpanSize, bestSpanArray) {
@@ -99,45 +96,21 @@ function checkMinSpanSize(bestSpanSize, minSpanSize, bestSpanArray) {
   return bestSpanSize;
 }
 
-function getSpanBasedOnGridType(gridType, spanArray) {
+function getSpan(spanArray) {
   let bestSpanSize;
   let lastNum;
   let secondLastNum;
-  switch (gridType) {
-    case "MAX":
-      bestSpanSize = getMax(spanArray);
-      break;
-    case "MIN":
-      bestSpanSize = getMin(spanArray);
-      break;
-    case "SM":
-      bestSpanSize = spanArray[1];
-      break;
-    case "LRG":
-      lastNum = spanArray[spanArray.length - 1];
-      secondLastNum = undefined;
-      // 3 is a special case
-      // Changing the "3" here changes the num at which the LRG grid activates one the array length
-      if (lastNum > 3) {
-        secondLastNum = spanArray.length - 2;
-      } else {
-        secondLastNum = spanArray.length - 1;
-      }
-      bestSpanSize = spanArray[secondLastNum];
-      break;
-    default:
+  lastNum = spanArray[spanArray.length - 1];
+  secondLastNum = undefined;
+  // 3 is a special case
+  // Changing the "3" here changes the num at which the LRG grid activates one the array length
+  if (lastNum > 3) {
+    secondLastNum = spanArray.length - 2;
+  } else {
+    secondLastNum = spanArray.length - 1;
   }
+  bestSpanSize = spanArray[secondLastNum];
   return bestSpanSize;
-}
-
-function getMax(arry) {
-  // Get the max number in the array
-  return Math.max.apply(null, arry);
-}
-
-function getMin(arry) {
-  // Get the min number in the array
-  return Math.min.apply(null, arry);
 }
 
 //= =================================================================================
