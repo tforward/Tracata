@@ -49,8 +49,9 @@ function setGridSize(gridSize, spanArray, defaultRowSize) {
 }
 
 function renderGrid(colRowSize, colName, rowName) {
-  document.documentElement.style.setProperty(colName, colRowSize[0]);
-  document.documentElement.style.setProperty(rowName, colRowSize[1]);
+  const [colSize, rowSize] = colRowSize;
+  document.documentElement.style.setProperty(colName, colSize);
+  document.documentElement.style.setProperty(rowName, rowSize);
 }
 
 function getGridSize(num, i, gridDivisors) {
