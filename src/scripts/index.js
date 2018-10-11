@@ -40,7 +40,7 @@ myApp.main = function main() {
       values: { 1: [1, 1], 2: [1, 1], 4: [1, 1], 6: [2, 2], 8: [2], 12: [2, 2] }
     }
   };
-  loadTracata("grid", 80, 80, gridSplits, gridArrays, 2);
+  loadTracata("grid", 80, 80, gridSplits, gridArrays);
 };
 
 myApp.initApplication = function init() {

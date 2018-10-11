@@ -1,33 +1,33 @@
-export function loadTracata(gridId, spanRowSize, spanColSize, gridDivisors, gridArrays, defaultRowSize) {
+export function loadTracata(gridId, spanRowSize, spanColSize, gridDivisors, gridArrays) {
   const gridElem = document.getElementById(gridId);
   // Return an array of the first item of grid list
   const gridSplits = gridDivisors;
 
   // On Load
-  grids(gridElem, spanColSize, gridArrays, defaultRowSize, gridSplits);
+  grids(gridElem, spanColSize, gridArrays, gridSplits);
   document.documentElement.style.setProperty("--spanRowPixelSize", `${spanRowSize}px`);
 
   // On Resize
   window.addEventListener("resize", event => {
-    grids(gridElem, spanColSize, gridArrays, defaultRowSize, gridSplits);
+    grids(gridElem, spanColSize, gridArrays, gridSplits);
   });
 }
 
-function grids(grid, spanColSize, gridArrays, defaultRowSize, gridDivisors) {
+function grids(grid, spanColSize, gridArrays, gridDivisors) {
   const gridSize = getGridMax(grid, spanColSize, "--maxSpan", gridDivisors);
-  setGridArray(gridArrays, defaultRowSize, gridSize);
+  setGridArray(gridArrays, gridSize);
 }
 
-function setGridArray(gridArrays, defaultRowSize, gridSize) {
+function setGridArray(gridArrays, gridSize) {
   const gridEntries = Object.entries(gridArrays);
 
   gridEntries.forEach(grid => {
-    setGrid(grid[1]["values"], defaultRowSize, gridSize, grid[1]["rowName"], grid[1]["colName"]);
+    setGrid(grid[1]["values"], gridSize, grid[1]["rowName"], grid[1]["colName"]);
   });
 }
 
-function setGrid(spanArray, defaultRowSize, gridSize, rowName, colName) {
-  const colRowSize = setGridSize(gridSize, spanArray, defaultRowSize);
+function setGrid(spanArray, gridSize, rowName, colName) {
+  const colRowSize = setGridSize(gridSize, spanArray);
   renderGrid(colRowSize, colName, rowName);
 }
 
@@ -39,9 +39,9 @@ function getGridMax(grid, gridMin, spanName, gridDivisors) {
   return gridSize;
 }
 
-function setGridSize(gridSize, spanArray, defaultRowSize) {
+function setGridSize(gridSize, spanArray) {
   const spanColSize = spanArray[gridSize][0];
-  let spanRowSize = defaultRowSize;
+  let spanRowSize;
   if (spanArray[gridSize][1] !== undefined) {
     spanRowSize = spanArray[gridSize][1];
   }
@@ -51,7 +51,9 @@ function setGridSize(gridSize, spanArray, defaultRowSize) {
 function renderGrid(colRowSize, colName, rowName) {
   const [colSize, rowSize] = colRowSize;
   document.documentElement.style.setProperty(colName, colSize);
-  document.documentElement.style.setProperty(rowName, rowSize);
+  if (rowSize !== undefined) {
+    document.documentElement.style.setProperty(rowName, rowSize);
+  }
 }
 
 function getGridSize(num, i, gridDivisors) {
